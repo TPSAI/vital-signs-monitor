@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生理監視器螢幕產生器</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-9">
+                <div id="monitor-screen" class="monitor-container">
+                    <div class="datetime-display">
+                        <div class="date">2024-01-01</div>
+                        <div class="time">12:00:00</div>
+                    </div>
+                    <div class="vital-signs">
+                        <div class="parameter" id="bp">
+                            <h3>血壓</h3>
+                            <div class="value">120/80</div>
+                            <div class="unit">mmHg</div>
+                        </div>
+                        <div class="parameter" id="hr">
+                            <h3>心跳</h3>
+                            <div class="value">75</div>
+                            <div class="unit">BPM</div>
+                        </div>
+                        <div class="parameter" id="spo2">
+                            <h3>血氧</h3>
+                            <div class="value">98</div>
+                            <div class="unit">%</div>
+                        </div>
+                        <div class="parameter" id="temp">
+                            <h3>體溫</h3>
+                            <div class="value">36.5</div>
+                            <div class="unit">°C</div>
+                        </div>
+                        <div class="parameter" id="resp">
+                            <h3>呼吸</h3>
+                            <div class="value">16</div>
+                            <div class="unit">次/分</div>
+                        </div>
+                        <div class="parameter" id="etco2">
+                            <h3>EtCO2</h3>
+                            <div class="value">35</div>
+                            <div class="unit">mmHg</div>
+                        </div>
+                    </div>
+                    <div class="company-info">
+                        <a href="https://www.facebook.com/taiwanparamedicine" target="_blank" rel="noopener noreferrer">
+                            台灣應急整合服務股份有限公司
+                        </a>
+                        <span class="company-suffix">製作</span>
+                        <span class="company-phone">TEL:03-2605099</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="control-panel">
+                    <h2>控制面板</h2>
+                    <div class="mb-3">
+                        <label for="dateInput" class="form-label">日期</label>
+                        <input type="date" class="form-control" id="dateInput">
+                    </div>
+                    <div class="mb-3">
+                        <label for="timeInput" class="form-label">時間</label>
+                        <input type="time" class="form-control" id="timeInput" step="1">
+                    </div>
+                    <div class="mb-3">
+                        <label for="bpSystolic" class="form-label">收縮壓</label>
+                        <input type="number" class="form-control" id="bpSystolic" value="120">
+                    </div>
+                    <div class="mb-3">
+                        <label for="bpDiastolic" class="form-label">舒張壓</label>
+                        <input type="number" class="form-control" id="bpDiastolic" value="80">
+                    </div>
+                    <div class="mb-3">
+                        <label for="heartRate" class="form-label">心跳</label>
+                        <input type="number" class="form-control" id="heartRate" value="75">
+                    </div>
+                    <div class="mb-3">
+                        <label for="spo2Value" class="form-label">血氧</label>
+                        <input type="number" class="form-control" id="spo2Value" value="98">
+                    </div>
+                    <div class="mb-3">
+                        <label for="temperature" class="form-label">體溫</label>
+                        <input type="number" class="form-control" id="temperature" value="36.5" step="0.1">
+                    </div>
+                    <div class="mb-3">
+                        <label for="respiration" class="form-label">呼吸</label>
+                        <input type="number" class="form-control" id="respiration" value="16">
+                    </div>
+                    <div class="mb-3">
+                        <label for="etco2Value" class="form-label">EtCO2</label>
+                        <input type="number" class="form-control" id="etco2Value" value="35">
+                    </div>
+                    <button class="btn btn-primary mb-2 w-100" id="captureBtn">螢幕快照</button>
+                    <hr>
+                    <div class="mb-3">
+                        <h4 class="mb-3">顏色設定</h4>
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">血壓顏色</label>
+                                <input type="color" class="form-control form-control-color w-100" id="bpColor" value="#ff0000">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">心跳顏色</label>
+                                <input type="color" class="form-control form-control-color w-100" id="hrColor" value="#00ff00">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">血氧顏色</label>
+                                <input type="color" class="form-control form-control-color w-100" id="spo2Color" value="#00ffff">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">體溫顏色</label>
+                                <input type="color" class="form-control form-control-color w-100" id="tempColor" value="#ffffff">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">呼吸顏色</label>
+                                <input type="color" class="form-control form-control-color w-100" id="respColor" value="#ffff00">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">EtCO2顏色</label>
+                                <input type="color" class="form-control form-control-color w-100" id="etco2Color" value="#ffa500">
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="mb-3">
+                        <h4 class="mb-3">批次處理</h4>
+                        <div class="mb-2">
+                            <button class="btn btn-outline-secondary btn-sm w-100" id="downloadTemplateBtn">
+                                下載範本檔案
+                            </button>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">輸出檔案名稱設定</label>
+                            <input type="text" class="form-control mb-2" id="outputFilePrefix" placeholder="��案名稱前綴">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="includeDateVar" checked>
+                                <label class="form-check-label" for="includeDateVar">
+                                    加入日期 (YYYY-MM-DD)
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="includeTimeVar" checked>
+                                <label class="form-check-label" for="includeTimeVar">
+                                    加入時間 (HH-mm-ss)
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="includeIndexVar" checked>
+                                <label class="form-check-label" for="includeIndexVar">
+                                    加入序號 (001)
+                                </label>
+                            </div>
+                            <small class="text-muted d-block mt-2">
+                                預覽：<span id="fileNamePreview" class="text-primary">vital-signs-20240101-120000-001.png</span>
+                            </small>
+                        </div>
+                        <label for="csvFile" class="form-label">選擇 Excel/CSV 檔案</label>
+                        <input type="file" class="form-control mb-2" id="csvFile" accept=".csv,.xlsx">
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-success" id="batchProcessBtn" disabled>
+                                <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                開始處理
+                            </button>
+                        </div>
+                        <small class="text-muted mt-2 d-block">
+                            說明：系統會將檔案中的每一列資料轉換成獨立的監視器畫面，並打包成壓縮檔提供下載。
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 

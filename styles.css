@@ -1,0 +1,252 @@
+body {
+    background-color: #f0f0f0;
+    padding: 20px;
+}
+
+.monitor-container {
+    background-color: #000;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.datetime-display {
+    display: flex;
+    justify-content: center;
+    gap: min(20px, 2vw);
+    margin-bottom: 20px;
+    font-family: 'Digital-7', monospace;
+    color: #00ff00;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+    width: 100%;
+    overflow: hidden;
+}
+
+.datetime-display .date,
+.datetime-display .time {
+    font-size: min(5.5rem, 7vw);
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.vital-signs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.parameter {
+    background-color: #1a1a1a;
+    border-radius: 15px;
+    padding: 12px;
+    text-align: center;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    aspect-ratio: 2/1;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.parameter h3 {
+    color: #888;
+    font-size: min(2.2rem, 3.5vw);
+    margin-bottom: 2px;
+    font-weight: bold;
+}
+
+.value {
+    font-size: min(6.5rem, 8vw);
+    font-weight: bold;
+    font-family: 'Digital', monospace;
+    line-height: 1;
+    margin: 2px 0;
+    padding: 0 5px;
+    width: 100%;
+}
+
+.unit {
+    color: #888;
+    font-size: min(1.8rem, 2.2vw);
+    margin-top: 2px;
+}
+
+.control-panel {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.control-panel h2 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 1.5rem;
+}
+
+.form-control:focus {
+    border-color: #00ff00;
+    box-shadow: 0 0 0 0.2rem rgba(0, 255, 0, 0.25);
+}
+
+#bp .value {
+    font-size: min(4.5rem, 5.5vw);
+    padding: 0 8px;
+    line-height: 1.1;
+}
+
+#temp .value {
+    font-size: min(6rem, 7vw);
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0.3; }
+    100% { opacity: 1; }
+}
+
+.alert {
+    animation: blink 1s infinite;
+}
+
+/* 響應式設計 */
+@media (max-width: 1400px) {
+    .parameter h3 {
+        font-size: min(2rem, 3vw);
+    }
+    
+    .value {
+        font-size: min(6rem, 7vw);
+    }
+    
+    .unit {
+        font-size: min(1.6rem, 2vw);
+    }
+    
+    #bp .value {
+        font-size: min(4rem, 5vw);
+    }
+    
+    #temp .value {
+        font-size: min(5.5rem, 6.5vw);
+    }
+}
+
+@media (max-width: 1200px) {
+    .vital-signs {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    
+    .parameter {
+        padding: 10px;
+    }
+    
+    .parameter h3 {
+        font-size: min(1.8rem, 3vw);
+    }
+    
+    .value {
+        font-size: min(5.5rem, 6.5vw);
+    }
+    
+    .unit {
+        font-size: min(1.4rem, 2vw);
+    }
+    
+    #bp .value {
+        font-size: min(3.8rem, 4.8vw);
+    }
+    
+    #temp .value {
+        font-size: min(5rem, 6vw);
+    }
+}
+
+@media (max-width: 768px) {
+    .vital-signs {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .parameter {
+        aspect-ratio: 2.5/1;
+        padding: 8px;
+    }
+    
+    .parameter h3 {
+        font-size: min(1.8rem, 4vw);
+        margin-bottom: 1px;
+    }
+    
+    .value {
+        font-size: min(5rem, 8vw);
+        margin: 1px 0;
+    }
+    
+    .unit {
+        font-size: min(1.3rem, 2.5vw);
+        margin-top: 1px;
+    }
+    
+    #bp .value {
+        font-size: min(3.5rem, 5.5vw);
+    }
+    
+    #temp .value {
+        font-size: min(4.5rem, 7vw);
+    }
+}
+
+.company-info {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 20px;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+}
+
+.company-info a {
+    color: #0066cc;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-weight: bold;
+}
+
+.company-info a:hover {
+    color: #0099ff;
+}
+
+.company-suffix {
+    color: #666;
+}
+
+.company-phone {
+    color: #0066cc;
+    font-weight: bold;
+}
+
+/* 響應式設計中的公司資訊調整 */
+@media (max-width: 768px) {
+    .company-info {
+        font-size: 1rem;
+        padding: 15px 0;
+        flex-direction: column;
+        gap: 5px;
+    }
+} 
