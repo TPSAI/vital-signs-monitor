@@ -60,118 +60,191 @@
             <div class="col-md-3">
                 <div class="control-panel">
                     <h2>控制面板</h2>
-                    <div class="mb-3">
-                        <label for="dateInput" class="form-label">日期</label>
-                        <input type="date" class="form-control" id="dateInput">
-                    </div>
-                    <div class="mb-3">
-                        <label for="timeInput" class="form-label">時間</label>
-                        <input type="time" class="form-control" id="timeInput" step="1">
-                    </div>
-                    <div class="mb-3">
-                        <label for="bpSystolic" class="form-label">收縮壓</label>
-                        <input type="number" class="form-control" id="bpSystolic" value="120">
-                    </div>
-                    <div class="mb-3">
-                        <label for="bpDiastolic" class="form-label">舒張壓</label>
-                        <input type="number" class="form-control" id="bpDiastolic" value="80">
-                    </div>
-                    <div class="mb-3">
-                        <label for="heartRate" class="form-label">心跳</label>
-                        <input type="number" class="form-control" id="heartRate" value="75">
-                    </div>
-                    <div class="mb-3">
-                        <label for="spo2Value" class="form-label">血氧</label>
-                        <input type="number" class="form-control" id="spo2Value" value="98">
-                    </div>
-                    <div class="mb-3">
-                        <label for="temperature" class="form-label">體溫</label>
-                        <input type="number" class="form-control" id="temperature" value="36.5" step="0.1">
-                    </div>
-                    <div class="mb-3">
-                        <label for="respiration" class="form-label">呼吸</label>
-                        <input type="number" class="form-control" id="respiration" value="16">
-                    </div>
-                    <div class="mb-3">
-                        <label for="etco2Value" class="form-label">EtCO2</label>
-                        <input type="number" class="form-control" id="etco2Value" value="35">
-                    </div>
-                    <button class="btn btn-primary mb-2 w-100" id="captureBtn">螢幕快照</button>
-                    <hr>
-                    <div class="mb-3">
-                        <h4 class="mb-3">顏色設定</h4>
-                        <div class="row g-2 mb-3">
-                            <div class="col-md-6">
-                                <label class="form-label">血壓顏色</label>
-                                <input type="color" class="form-control form-control-color w-100" id="bpColor" value="#ff0000">
+                    <ul class="nav nav-tabs mb-3" id="controlTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="manual-tab" data-bs-toggle="tab" data-bs-target="#manual" type="button" role="tab">手動設定</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="conditions-tab" data-bs-toggle="tab" data-bs-target="#conditions" type="button" role="tab">病症模擬</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="colors-tab" data-bs-toggle="tab" data-bs-target="#colors" type="button" role="tab">顏色設定</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="batch-tab" data-bs-toggle="tab" data-bs-target="#batch" type="button" role="tab">批次處理</button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content" id="controlTabContent">
+                        <!-- 手動設定分頁 -->
+                        <div class="tab-pane fade show active" id="manual" role="tabpanel">
+                            <div class="mb-3">
+                                <label for="dateInput" class="form-label">日期</label>
+                                <input type="date" class="form-control" id="dateInput">
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label">心跳顏色</label>
-                                <input type="color" class="form-control form-control-color w-100" id="hrColor" value="#00ff00">
+                            <div class="mb-3">
+                                <label for="timeInput" class="form-label">時間</label>
+                                <input type="time" class="form-control" id="timeInput" step="1">
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label">血氧顏色</label>
-                                <input type="color" class="form-control form-control-color w-100" id="spo2Color" value="#00ffff">
+                            <div class="mb-3">
+                                <label for="bpSystolic" class="form-label">收縮壓</label>
+                                <input type="number" class="form-control" id="bpSystolic" value="120">
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label">體溫顏色</label>
-                                <input type="color" class="form-control form-control-color w-100" id="tempColor" value="#ffffff">
+                            <div class="mb-3">
+                                <label for="bpDiastolic" class="form-label">舒張壓</label>
+                                <input type="number" class="form-control" id="bpDiastolic" value="80">
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label">呼吸顏色</label>
-                                <input type="color" class="form-control form-control-color w-100" id="respColor" value="#ffff00">
+                            <div class="mb-3">
+                                <label for="heartRate" class="form-label">心跳</label>
+                                <input type="number" class="form-control" id="heartRate" value="75">
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label">EtCO2顏色</label>
-                                <input type="color" class="form-control form-control-color w-100" id="etco2Color" value="#ffa500">
+                            <div class="mb-3">
+                                <label for="spo2Value" class="form-label">血氧</label>
+                                <input type="number" class="form-control" id="spo2Value" value="98">
+                            </div>
+                            <div class="mb-3">
+                                <label for="temperature" class="form-label">體溫</label>
+                                <input type="number" class="form-control" id="temperature" value="36.5" step="0.1">
+                            </div>
+                            <div class="mb-3">
+                                <label for="respiration" class="form-label">呼吸</label>
+                                <input type="number" class="form-control" id="respiration" value="16">
+                            </div>
+                            <div class="mb-3">
+                                <label for="etco2Value" class="form-label">EtCO2</label>
+                                <input type="number" class="form-control" id="etco2Value" value="35">
                             </div>
                         </div>
-                    </div>
-                    <hr>
-                    <div class="mb-3">
-                        <h4 class="mb-3">批次處理</h4>
-                        <div class="mb-2">
-                            <button class="btn btn-outline-secondary btn-sm w-100" id="downloadTemplateBtn">
-                                下載範本檔案
-                            </button>
+
+                        <!-- 病症模擬分頁 -->
+                        <div class="tab-pane fade" id="conditions" role="tabpanel">
+                            <div class="mb-3">
+                                <label class="form-label">選擇病症</label>
+                                <select class="form-select" id="conditionSelect">
+                                    <option value="normal">正常生命徵象</option>
+                                    <optgroup label="休克">
+                                        <option value="hypovolemic_1">低血容休克 - 第一期</option>
+                                        <option value="hypovolemic_2">低血容休克 - 第二期</option>
+                                        <option value="hypovolemic_3">低血容休克 - 第三期</option>
+                                        <option value="hypovolemic_4">低血容休克 - 第四期</option>
+                                        <option value="septic">敗血性休克</option>
+                                        <option value="neurogenic">神經性休克</option>
+                                        <option value="cardiogenic">心因性休克</option>
+                                        <option value="anaphylactic">過敏性休克</option>
+                                    </optgroup>
+                                    <optgroup label="呼吸系統">
+                                        <option value="copd_exacerbation">COPD急性發作</option>
+                                        <option value="asthma">氣喘發作</option>
+                                        <option value="pulmonary_embolism">肺栓塞</option>
+                                        <option value="pneumonia">肺炎</option>
+                                    </optgroup>
+                                    <optgroup label="心血管系統">
+                                        <option value="mi">心肌梗塞</option>
+                                        <option value="chf">充血性心衰竭</option>
+                                        <option value="hypertensive_crisis">高血壓危象</option>
+                                    </optgroup>
+                                    <optgroup label="體溫相關">
+                                        <option value="heat_exhaustion">熱衰竭</option>
+                                        <option value="heat_stroke">熱中暑</option>
+                                        <option value="hypothermia">低體溫</option>
+                                    </optgroup>
+                                    <optgroup label="其他">
+                                        <option value="dka">糖尿病酮酸中毒</option>
+                                        <option value="seizure">癲癇發作</option>
+                                        <option value="sepsis">敗血症</option>
+                                        <option value="head_injury">頭部創傷</option>
+                                    </optgroup>
+                                </select>
+                                <button class="btn btn-primary mt-2 w-100" id="generateVitalsBtn">生成生命徵象</button>
+                            </div>
+                            <div id="conditionDescription" class="mt-3">
+                                <!-- 病症說明將在這裡動態顯示 -->
+                            </div>
+                            <div class="alert alert-info mt-3">
+                                <small>
+                                    說明：系統會根據選擇的病症，自動生成合理的生命徵象數據範圍。每次生成的數值會在合理範圍內隨機變動。
+                                </small>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">輸出檔案名稱設定</label>
-                            <input type="text" class="form-control mb-2" id="outputFilePrefix" placeholder="��案名稱前綴">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="includeDateVar" checked>
-                                <label class="form-check-label" for="includeDateVar">
-                                    加入日期 (YYYY-MM-DD)
-                                </label>
+
+                        <!-- 顏色設定分頁 -->
+                        <div class="tab-pane fade" id="colors" role="tabpanel">
+                            <div class="row g-2">
+                                <div class="col-md-6">
+                                    <label class="form-label">血壓顏色</label>
+                                    <input type="color" class="form-control form-control-color w-100" id="bpColor" value="#ff0000">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">心跳顏色</label>
+                                    <input type="color" class="form-control form-control-color w-100" id="hrColor" value="#00ff00">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">血氧顏色</label>
+                                    <input type="color" class="form-control form-control-color w-100" id="spo2Color" value="#00ffff">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">體溫顏色</label>
+                                    <input type="color" class="form-control form-control-color w-100" id="tempColor" value="#ffffff">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">呼吸顏色</label>
+                                    <input type="color" class="form-control form-control-color w-100" id="respColor" value="#ffff00">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">EtCO2顏色</label>
+                                    <input type="color" class="form-control form-control-color w-100" id="etco2Color" value="#ffa500">
+                                </div>
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="includeTimeVar" checked>
-                                <label class="form-check-label" for="includeTimeVar">
-                                    加入時間 (HH-mm-ss)
-                                </label>
+                        </div>
+
+                        <!-- 批次處理分頁 -->
+                        <div class="tab-pane fade" id="batch" role="tabpanel">
+                            <div class="mb-2">
+                                <button class="btn btn-outline-secondary btn-sm w-100" id="downloadTemplateBtn">
+                                    下載範本檔案
+                                </button>
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="includeIndexVar" checked>
-                                <label class="form-check-label" for="includeIndexVar">
-                                    加入序號 (001)
-                                </label>
+                            <div class="mb-3">
+                                <label class="form-label">輸出檔案名稱設定</label>
+                                <input type="text" class="form-control mb-2" id="outputFilePrefix" placeholder="檔案名稱前綴">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="includeDateVar" checked>
+                                    <label class="form-check-label" for="includeDateVar">
+                                        加入日期 (YYYY-MM-DD)
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="includeTimeVar" checked>
+                                    <label class="form-check-label" for="includeTimeVar">
+                                        加入時間 (HH-mm-ss)
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="includeIndexVar" checked>
+                                    <label class="form-check-label" for="includeIndexVar">
+                                        加入序號 (001)
+                                    </label>
+                                </div>
+                                <small class="text-muted d-block mt-2">
+                                    預覽：<span id="fileNamePreview" class="text-primary">vital-signs-20240101-120000-001.png</span>
+                                </small>
                             </div>
-                            <small class="text-muted d-block mt-2">
-                                預覽：<span id="fileNamePreview" class="text-primary">vital-signs-20240101-120000-001.png</span>
+                            <label for="csvFile" class="form-label">選擇 Excel/CSV 檔案</label>
+                            <input type="file" class="form-control mb-2" id="csvFile" accept=".csv,.xlsx">
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-success" id="batchProcessBtn" disabled>
+                                    <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                    開始處理
+                                </button>
+                            </div>
+                            <small class="text-muted mt-2 d-block">
+                                說明：系統會將檔案中的每一列資料轉換成獨立的監視器畫面，並打包成壓縮檔提供下載。
                             </small>
                         </div>
-                        <label for="csvFile" class="form-label">選擇 Excel/CSV 檔案</label>
-                        <input type="file" class="form-control mb-2" id="csvFile" accept=".csv,.xlsx">
-                        <div class="d-grid gap-2">
-                            <button class="btn btn-success" id="batchProcessBtn" disabled>
-                                <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
-                                開始處理
-                            </button>
-                        </div>
-                        <small class="text-muted mt-2 d-block">
-                            說明：系統會將檔案中的每一列資料轉換成獨立的監視器畫面，並打包成壓縮檔提供下載。
-                        </small>
                     </div>
+
+                    <hr>
+                    <button class="btn btn-primary mb-2 w-100" id="captureBtn">螢幕快照</button>
                 </div>
             </div>
         </div>

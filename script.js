@@ -285,7 +285,7 @@ function updateDateTime() {
     }
 }
 
-// 設定當前日期時間
+// 設定當前���期時間
 function setCurrentDateTime() {
     const now = new Date();
     const dateInput = document.getElementById('dateInput');
@@ -422,4 +422,371 @@ document.addEventListener('DOMContentLoaded', () => {
     // 設定預設檔案名稱前綴
     document.getElementById('outputFilePrefix').value = 'vital-signs';
     updateFileNamePreview();
+});
+
+// 病症生命徵象範圍定義
+const vitalSignsRanges = {
+    normal: {
+        bp: { systolic: [110, 130], diastolic: [70, 85] },
+        hr: [60, 100],
+        spo2: [95, 100],
+        temp: [36.0, 37.2],
+        resp: [12, 20],
+        etco2: [35, 45]
+    },
+    hypovolemic_1: {
+        bp: { systolic: [100, 120], diastolic: [60, 80] },
+        hr: [100, 120],
+        spo2: [95, 98],
+        temp: [36.0, 37.0],
+        resp: [20, 30],
+        etco2: [30, 35]
+    },
+    hypovolemic_2: {
+        bp: { systolic: [80, 100], diastolic: [50, 70] },
+        hr: [120, 140],
+        spo2: [90, 95],
+        temp: [35.5, 36.5],
+        resp: [30, 40],
+        etco2: [25, 30]
+    },
+    hypovolemic_3: {
+        bp: { systolic: [70, 80], diastolic: [40, 50] },
+        hr: [140, 170],
+        spo2: [85, 90],
+        temp: [35.0, 36.0],
+        resp: [35, 45],
+        etco2: [20, 25]
+    },
+    hypovolemic_4: {
+        bp: { systolic: [50, 70], diastolic: [30, 40] },
+        hr: [170, 200],
+        spo2: [80, 85],
+        temp: [34.5, 35.5],
+        resp: [40, 50],
+        etco2: [15, 20]
+    },
+    septic: {
+        bp: { systolic: [70, 90], diastolic: [40, 60] },
+        hr: [120, 150],
+        spo2: [88, 92],
+        temp: [38.5, 40.0],
+        resp: [25, 35],
+        etco2: [25, 30]
+    },
+    neurogenic: {
+        bp: { systolic: [70, 90], diastolic: [40, 60] },
+        hr: [40, 60],
+        spo2: [95, 100],
+        temp: [36.0, 37.0],
+        resp: [10, 14],
+        etco2: [35, 45]
+    },
+    cardiogenic: {
+        bp: { systolic: [70, 90], diastolic: [40, 60] },
+        hr: [120, 150],
+        spo2: [85, 90],
+        temp: [35.5, 36.5],
+        resp: [25, 35],
+        etco2: [25, 30]
+    },
+    anaphylactic: {
+        bp: { systolic: [70, 90], diastolic: [40, 60] },
+        hr: [120, 150],
+        spo2: [85, 90],
+        temp: [36.5, 37.5],
+        resp: [25, 35],
+        etco2: [25, 30]
+    },
+    copd_exacerbation: {
+        bp: { systolic: [130, 150], diastolic: [80, 90] },
+        hr: [100, 120],
+        spo2: [85, 90],
+        temp: [36.5, 37.5],
+        resp: [25, 35],
+        etco2: [45, 60]
+    },
+    asthma: {
+        bp: { systolic: [130, 150], diastolic: [80, 90] },
+        hr: [100, 130],
+        spo2: [88, 92],
+        temp: [36.5, 37.5],
+        resp: [25, 40],
+        etco2: [30, 35]
+    },
+    pulmonary_embolism: {
+        bp: { systolic: [90, 110], diastolic: [60, 70] },
+        hr: [100, 130],
+        spo2: [85, 90],
+        temp: [36.5, 37.5],
+        resp: [25, 35],
+        etco2: [25, 30]
+    },
+    pneumonia: {
+        bp: { systolic: [110, 130], diastolic: [70, 80] },
+        hr: [90, 120],
+        spo2: [88, 92],
+        temp: [38.5, 39.5],
+        resp: [22, 28],
+        etco2: [30, 35]
+    },
+    mi: {
+        bp: { systolic: [150, 180], diastolic: [90, 100] },
+        hr: [100, 130],
+        spo2: [90, 95],
+        temp: [36.0, 37.0],
+        resp: [20, 30],
+        etco2: [35, 40]
+    },
+    chf: {
+        bp: { systolic: [140, 160], diastolic: [85, 95] },
+        hr: [90, 120],
+        spo2: [88, 92],
+        temp: [36.0, 37.0],
+        resp: [25, 35],
+        etco2: [35, 40]
+    },
+    hypertensive_crisis: {
+        bp: { systolic: [180, 220], diastolic: [110, 130] },
+        hr: [100, 130],
+        spo2: [95, 98],
+        temp: [36.5, 37.5],
+        resp: [20, 30],
+        etco2: [35, 40]
+    },
+    heat_exhaustion: {
+        bp: { systolic: [100, 120], diastolic: [60, 80] },
+        hr: [100, 120],
+        spo2: [95, 98],
+        temp: [37.5, 38.5],
+        resp: [20, 30],
+        etco2: [35, 40]
+    },
+    heat_stroke: {
+        bp: { systolic: [90, 110], diastolic: [50, 70] },
+        hr: [130, 160],
+        spo2: [90, 95],
+        temp: [40.0, 42.0],
+        resp: [25, 35],
+        etco2: [30, 35]
+    },
+    hypothermia: {
+        bp: { systolic: [85, 100], diastolic: [50, 65] },
+        hr: [40, 60],
+        spo2: [92, 95],
+        temp: [32.0, 35.0],
+        resp: [8, 12],
+        etco2: [35, 40]
+    },
+    dka: {
+        bp: { systolic: [90, 110], diastolic: [60, 70] },
+        hr: [100, 130],
+        spo2: [95, 98],
+        temp: [36.5, 37.5],
+        resp: [25, 35],
+        etco2: [20, 25]
+    },
+    seizure: {
+        bp: { systolic: [140, 160], diastolic: [90, 100] },
+        hr: [120, 150],
+        spo2: [88, 92],
+        temp: [37.0, 38.0],
+        resp: [25, 35],
+        etco2: [45, 50]
+    },
+    sepsis: {
+        bp: { systolic: [85, 100], diastolic: [50, 65] },
+        hr: [120, 140],
+        spo2: [88, 92],
+        temp: [38.5, 40.0],
+        resp: [25, 35],
+        etco2: [25, 30]
+    },
+    head_injury: {
+        bp: { systolic: [150, 180], diastolic: [90, 110] },
+        hr: [50, 70],
+        spo2: [95, 98],
+        temp: [36.5, 37.5],
+        resp: [8, 12],
+        etco2: [45, 50]
+    }
+};
+
+// 生成隨機數值
+function getRandomNumber(min, max, decimals = 0) {
+    const value = Math.random() * (max - min) + min;
+    return Number(value.toFixed(decimals));
+}
+
+// 生成生命徵象
+function generateVitalSigns(condition) {
+    const range = vitalSignsRanges[condition];
+    if (!range) return null;
+
+    return {
+        systolic: getRandomNumber(range.bp.systolic[0], range.bp.systolic[1]),
+        diastolic: getRandomNumber(range.bp.diastolic[0], range.bp.diastolic[1]),
+        hr: getRandomNumber(range.hr[0], range.hr[1]),
+        spo2: getRandomNumber(range.spo2[0], range.spo2[1]),
+        temp: getRandomNumber(range.temp[0], range.temp[1], 1),
+        resp: getRandomNumber(range.resp[0], range.resp[1]),
+        etco2: getRandomNumber(range.etco2[0], range.etco2[1])
+    };
+}
+
+// 更新所有生命徵象顯示
+function updateAllVitalSigns(vitals) {
+    document.getElementById('bpSystolic').value = vitals.systolic;
+    document.getElementById('bpDiastolic').value = vitals.diastolic;
+    document.getElementById('heartRate').value = vitals.hr;
+    document.getElementById('spo2Value').value = vitals.spo2;
+    document.getElementById('temperature').value = vitals.temp;
+    document.getElementById('respiration').value = vitals.resp;
+    document.getElementById('etco2Value').value = vitals.etco2;
+    
+    // 觸發更新顯示
+    updateVitalSigns();
+}
+
+// 監聽生成按鈕點擊事件
+document.getElementById('generateVitalsBtn').addEventListener('click', function() {
+    const selectedCondition = document.getElementById('conditionSelect').value;
+    const vitals = generateVitalSigns(selectedCondition);
+    if (vitals) {
+        updateAllVitalSigns(vitals);
+    }
+});
+
+// 病症說明定義
+const conditionDescriptions = {
+    normal: {
+        description: "正常生命徵象範圍",
+        details: "所有生命徵象都在正常範圍內。"
+    },
+    hypovolemic_1: {
+        description: "低血容休克 - 第一期（失血量 < 15%）",
+        details: "輕度心跳加快，血壓仍維持正常，末梢循環正常。"
+    },
+    hypovolemic_2: {
+        description: "低血容休克 - 第二期（失血量 15-30%）",
+        details: "明顯心跳加快，收縮壓下降，脈壓變窄，呼吸加快。"
+    },
+    hypovolemic_3: {
+        description: "低血容休克 - 第三期（失血量 30-40%）",
+        details: "嚴重心跳加快，血壓明顯下降，血氧下降，呼吸更快。"
+    },
+    hypovolemic_4: {
+        description: "低血容休克 - 第四期（失血量 > 40%）",
+        details: "極度心跳加快，血壓極低，血氧持續下降，呼吸極快。"
+    },
+    septic: {
+        description: "敗血性休克",
+        details: "體溫升高，心跳加快，血壓下降，血氧下降，呼吸加快。"
+    },
+    neurogenic: {
+        description: "神經性休克",
+        details: "心跳變慢，血壓下降，血氧正常，呼吸變慢。"
+    },
+    cardiogenic: {
+        description: "心因性休克",
+        details: "心跳加快，血壓下降，血氧下降，呼吸加快。"
+    },
+    anaphylactic: {
+        description: "過敏性休克",
+        details: "心跳加快，血壓下降，血氧下降，呼吸加快。"
+    },
+    copd_exacerbation: {
+        description: "COPD急性發作",
+        details: "血壓升高，心跳加快，血氧下降，呼吸加快，EtCO2升高。"
+    },
+    asthma: {
+        description: "氣喘發作",
+        details: "血壓升高，心跳加快，血氧下降，呼吸加快。"
+    },
+    pulmonary_embolism: {
+        description: "肺栓塞",
+        details: "心跳加快，血壓下降，血氧下降，呼吸加快，EtCO2下降。"
+    },
+    pneumonia: {
+        description: "肺炎",
+        details: "體溫升高，心跳加快，血氧下降，呼吸加快。"
+    },
+    mi: {
+        description: "心肌梗塞",
+        details: "血壓升高，心跳加快，血氧輕度下降。"
+    },
+    chf: {
+        description: "充血性心衰竭",
+        details: "血壓升高，心跳加快，血氧下降，呼吸加快。"
+    },
+    hypertensive_crisis: {
+        description: "高血壓危象",
+        details: "血壓極高，心跳加快。"
+    },
+    heat_exhaustion: {
+        description: "熱衰竭",
+        details: "體溫輕度升高，心跳加快，血壓正常或稍低。"
+    },
+    heat_stroke: {
+        description: "熱中暑",
+        details: "體溫極高（>40°C），心跳極快，血壓下降。"
+    },
+    hypothermia: {
+        description: "低體溫",
+        details: "體溫極低（<35°C），心跳變慢，血壓下降，呼吸變慢。"
+    },
+    dka: {
+        description: "糖尿病酮酸中毒",
+        details: "心跳加快，血壓下降，呼吸加快，EtCO2下降。"
+    },
+    seizure: {
+        description: "癲癇發作",
+        details: "血壓升高，心跳加快，血氧下降，呼吸不規則。"
+    },
+    sepsis: {
+        description: "敗血症",
+        details: "體溫升高，心跳加快，血壓下降，血氧下降。"
+    },
+    head_injury: {
+        description: "頭部創傷",
+        details: "血壓升高，心跳變慢，呼吸變慢，EtCO2升高。"
+    }
+};
+
+// 更新病症說明顯示
+function updateConditionDescription(condition) {
+    const range = vitalSignsRanges[condition];
+    const description = conditionDescriptions[condition];
+    
+    if (!range || !description) return;
+
+    const descriptionHtml = `
+        <div class="condition-info mb-3">
+            <h5>${description.description}</h5>
+            <p class="mb-2">${description.details}</p>
+            <h6>生命徵象參考範圍：</h6>
+            <ul class="list-unstyled">
+                <li>血壓：${range.bp.systolic[0]}-${range.bp.systolic[1]}/${range.bp.diastolic[0]}-${range.bp.diastolic[1]} mmHg</li>
+                <li>心跳：${range.hr[0]}-${range.hr[1]} 次/分</li>
+                <li>血氧：${range.spo2[0]}-${range.spo2[1]}%</li>
+                <li>體溫：${range.temp[0]}-${range.temp[1]}°C</li>
+                <li>呼吸：${range.resp[0]}-${range.resp[1]} 次/分</li>
+                <li>EtCO2：${range.etco2[0]}-${range.etco2[1]} mmHg</li>
+            </ul>
+        </div>
+    `;
+
+    document.getElementById('conditionDescription').innerHTML = descriptionHtml;
+}
+
+// 監聽病症選擇變化
+document.getElementById('conditionSelect').addEventListener('change', function() {
+    const selectedCondition = this.value;
+    updateConditionDescription(selectedCondition);
+});
+
+// 初始化時顯示預設病症說明
+document.addEventListener('DOMContentLoaded', () => {
+    // ... existing code ...
+    updateConditionDescription('normal');
 }); 
