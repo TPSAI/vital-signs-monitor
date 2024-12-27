@@ -57,7 +57,10 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" id="controlPanel">
+                <button id="toggleControlPanel" class="toggle-button">
+                    <span class="toggle-icon">›</span>
+                </button>
                 <div class="control-panel">
                     <h2>控制面板</h2>
                     <ul class="nav nav-tabs mb-3" id="controlTabs" role="tablist">
@@ -146,7 +149,7 @@
                                     <optgroup label="體溫相關">
                                         <option value="heat_exhaustion">熱衰竭</option>
                                         <option value="heat_stroke">熱中暑</option>
-                                        <option value="hypothermia">低體溫</option>
+                                        <option value="hypothermia">���體溫</option>
                                     </optgroup>
                                     <optgroup label="其他">
                                         <option value="dka">糖尿病酮酸中毒</option>
@@ -205,7 +208,7 @@
                                 </button>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">輸出檔案名稱設定</label>
+                                <label class="form-label">輸出檔���名稱設定</label>
                                 <input type="text" class="form-control mb-2" id="outputFilePrefix" placeholder="檔案名稱前綴">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="includeDateVar" checked>

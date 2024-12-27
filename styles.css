@@ -80,21 +80,22 @@ body {
 }
 
 .control-panel {
-    background-color: #fff;
-    border-radius: 10px;
+    background: #fff;
     padding: 20px;
+    border-radius: 10px;
+    margin-left: 40px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .control-panel h2 {
-    margin-bottom: 20px;
     color: #333;
+    margin-bottom: 20px;
     font-size: 1.5rem;
 }
 
 .form-control:focus {
-    border-color: #00ff00;
-    box-shadow: 0 0 0 0.2rem rgba(0, 255, 0, 0.25);
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
 #bp .value {
@@ -248,5 +249,89 @@ body {
         padding: 15px 0;
         flex-direction: column;
         gap: 5px;
+    }
+}
+
+/* 控制面板摺疊功能樣式 */
+#controlPanel {
+    position: relative;
+    transition: transform 0.3s ease-in-out;
+}
+
+#controlPanel.collapsed {
+    transform: translateX(calc(100% - 40px));
+}
+
+.toggle-button {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 80px;
+    background: #007bff;
+    border: none;
+    border-radius: 8px 0 0 8px;
+    color: #fff;
+    cursor: pointer;
+    z-index: 1000;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.toggle-button:hover {
+    background: #0056b3;
+}
+
+.toggle-icon {
+    font-size: 24px;
+    transition: transform 0.3s ease-in-out;
+    display: inline-block;
+}
+
+#controlPanel.collapsed .toggle-icon {
+    transform: rotate(180deg);
+}
+
+/* 調整控制面板標題顏色 */
+.control-panel h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+/* 調整標籤頁樣式 */
+.nav-tabs .nav-link {
+    color: #495057;
+}
+
+.nav-tabs .nav-link.active {
+    color: #007bff;
+    border-color: #dee2e6 #dee2e6 #fff;
+}
+
+/* 調整表單元素樣式 */
+.form-label {
+    color: #495057;
+}
+
+/* 調整按鈕樣式 */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+/* 調整監視器容器在控制面板收合時的寬度 */
+@media (min-width: 768px) {
+    #controlPanel.collapsed + .col-md-9 {
+        width: calc(100% - 40px);
     }
 } 

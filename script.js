@@ -285,7 +285,7 @@ function updateDateTime() {
     }
 }
 
-// 設定當前���期時間
+// 設定當前日期時間
 function setCurrentDateTime() {
     const now = new Date();
     const dateInput = document.getElementById('dateInput');
@@ -709,7 +709,7 @@ const conditionDescriptions = {
     },
     pneumonia: {
         description: "肺炎",
-        details: "體溫升高，心跳加快，血氧下降，呼吸加快。"
+        details: "體溫升高，心跳加快，血氧下降，呼吸加快��"
     },
     mi: {
         description: "心肌梗塞",
@@ -748,7 +748,7 @@ const conditionDescriptions = {
         details: "體溫升高，心跳加快，血壓下降，血氧下降。"
     },
     head_injury: {
-        description: "頭部創傷",
+        description: "頭部���傷",
         details: "血壓升高，心跳變慢，呼吸變慢，EtCO2升高。"
     }
 };
@@ -789,4 +789,32 @@ document.getElementById('conditionSelect').addEventListener('change', function()
 document.addEventListener('DOMContentLoaded', () => {
     // ... existing code ...
     updateConditionDescription('normal');
+});
+
+// 控制面板摺疊功能
+document.getElementById('toggleControlPanel').addEventListener('click', function() {
+    const controlPanel = document.getElementById('controlPanel');
+    controlPanel.classList.toggle('collapsed');
+    
+    // 儲存狀態到 localStorage
+    localStorage.setItem('controlPanelCollapsed', controlPanel.classList.contains('collapsed'));
+});
+
+// 載入時恢復控制面板狀態
+document.addEventListener('DOMContentLoaded', function() {
+    const controlPanel = document.getElementById('controlPanel');
+    const isCollapsed = localStorage.getItem('controlPanelCollapsed') === 'true';
+    
+    if (isCollapsed) {
+        controlPanel.classList.add('collapsed');
+    }
+});
+
+// 添加鍵盤快捷鍵（按下 'H' 鍵切換控制面板）
+document.addEventListener('keydown', function(event) {
+    if (event.key.toLowerCase() === 'h') {
+        const controlPanel = document.getElementById('controlPanel');
+        controlPanel.classList.toggle('collapsed');
+        localStorage.setItem('controlPanelCollapsed', controlPanel.classList.contains('collapsed'));
+    }
 }); 
